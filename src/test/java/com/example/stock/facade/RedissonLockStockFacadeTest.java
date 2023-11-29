@@ -16,10 +16,10 @@ import java.util.concurrent.Executors;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-class NamedLockStockFacadeTest {
+class RedissonLockStockFacadeTest {
 
     @Autowired
-    private NamedLockStockFacade namedLockStockFacade;
+    private RedissonLockStockFacade redissonLockStockFacade;
 
     @Autowired
     private StockRepository stockRepository;
@@ -46,7 +46,7 @@ class NamedLockStockFacadeTest {
         for (int i = 0; i < threadCount; i++) {
             executorService.submit(() -> {
                 try {
-                    namedLockStockFacade.decrease(1L, 1L);
+                    redissonLockStockFacade.decrease(1L, 1L);
                 } finally {
                     latch.countDown();
                 }
